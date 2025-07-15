@@ -13,41 +13,30 @@ st.set_page_config(page_title="🎓 CGPA & SGPA Calculator", layout="centered")
 # --------------------------
 st.markdown("""
     <style>
-    body {
-        background-color: #e0f7fa;
+    /* Force all inputs and dropdowns to be visible */
+    .stTextInput input, .stDateInput input, .stNumberInput input,
+    .stSelectbox div[data-baseweb="select"], .stTextArea textarea {
+        color: black !important;
+        background-color: white !important;
+        border: 1px solid #ccc !important;
+        border-radius: 5px !important;
     }
-    .stApp {
-        background-color: #e0f7fa;
-    }
-    .main {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    }
-    .title {
-        font-size: 40px;
-        font-weight: bold;
-        color: #2c3e50;
-        text-align: center;
-        text-shadow: 2px 2px 5px #aaa;
-    }
+
+    /* Also fix general input fields */
     input, textarea, select {
         color: black !important;
         background-color: white !important;
     }
-    .stTextInput input, .stDateInput input, .stNumberInput input, .stSelectbox div, .stTextArea textarea {
-        background-color: white !important;
-        color: black !important;
-        border-radius: 6px !important;
-    }
+
+    /* Button Styling */
     .stButton button {
         background-color: #1E88E5 !important;
         color: white !important;
-        border-radius: 8px;
+        border-radius: 8px !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 st.markdown('<div class="main"><div class="title">🎓 CGPA & SGPA Calculator</div>', unsafe_allow_html=True)
 st.markdown("<p style='text-align:center;'>Designed with ❤️ using Streamlit</p>", unsafe_allow_html=True)
