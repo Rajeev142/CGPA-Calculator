@@ -9,10 +9,8 @@ from reportlab.pdfgen import canvas
 st.set_page_config(page_title="🎓 CGPA & SGPA Calculator", layout="centered")
 
 # --------------------------
-# Custom CSS for colorful 3D effect
+# Custom CSS for Light Theme & Mobile Visibility
 # --------------------------
-
-# Set background color
 st.markdown("""
     <style>
     body {
@@ -21,13 +19,6 @@ st.markdown("""
     .stApp {
         background-color: #e0f7fa;
     }
-    </style>
-""", unsafe_allow_html=True)
-
-
-
-st.markdown("""
-    <style>
     .main {
         background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         border-radius: 15px;
@@ -40,6 +31,20 @@ st.markdown("""
         color: #2c3e50;
         text-align: center;
         text-shadow: 2px 2px 5px #aaa;
+    }
+    input, textarea, select {
+        color: black !important;
+        background-color: white !important;
+    }
+    .stTextInput input, .stDateInput input, .stNumberInput input, .stSelectbox div, .stTextArea textarea {
+        background-color: white !important;
+        color: black !important;
+        border-radius: 6px !important;
+    }
+    .stButton button {
+        background-color: #1E88E5 !important;
+        color: white !important;
+        border-radius: 8px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -57,7 +62,7 @@ tab1, tab2 = st.tabs(["📘 SGPA Calculator", "📗 CGPA Calculator"])
 # --------------------------
 with tab1:
     st.header("📘 SGPA Calculator")
-    st.subheader("📝 Student Information")
+    st.subheader("Student Information")
     student_name = st.text_input("👨‍🎓 Student Name")
     branch = st.text_input("🏫 Branch")
     semester = st.text_input("📚 Semester")
@@ -100,7 +105,7 @@ with tab1:
             sgpa = total_points / total_credits
             st.success(f"✅ Your SGPA is: **{sgpa:.2f}**")
 
-            st.subheader("🧾 Marksheet Summary")
+            st.subheader("Marksheet Summary")
             st.markdown(f"**Student Name:** {student_name}")
             st.markdown(f"**Branch:** {branch}")
             st.markdown(f"**Semester:** {semester}")
