@@ -9,11 +9,11 @@ from reportlab.pdfgen import canvas
 st.set_page_config(page_title="🎓 CGPA & SGPA Calculator", layout="centered")
 
 # --------------------------
-# Custom CSS for Light Theme & Mobile Visibility
+# Custom CSS for Light Theme & Visibility Fix
 # --------------------------
 st.markdown("""
     <style>
-    /* Force all inputs and dropdowns to be visible */
+    /* Input Fields */
     .stTextInput input, .stDateInput input, .stNumberInput input,
     .stSelectbox div[data-baseweb="select"], .stTextArea textarea {
         color: black !important;
@@ -22,23 +22,47 @@ st.markdown("""
         border-radius: 5px !important;
     }
 
-    /* Also fix general input fields */
     input, textarea, select {
         color: black !important;
         background-color: white !important;
     }
 
-    /* Button Styling */
     .stButton button {
         background-color: #1E88E5 !important;
         color: white !important;
         border-radius: 8px !important;
     }
+
+    /* Centered Title Styling */
+    .title-box {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .title-text {
+        font-size: 32px;
+        font-weight: bold;
+        color: #2c3e50;
+        text-shadow: 2px 2px 5px #aaa;
+        margin: 0;
+    }
     </style>
 """, unsafe_allow_html=True)
 
+# --------------------------
+# Centered Title Block
+# --------------------------
+st.markdown("""
+    <div class="title-box">
+        <h1 class="title-text">🎓 CGPA & SGPA Calculator</h1>
+    </div>
+""", unsafe_allow_html=True)
 
-st.markdown('<div class="main"><div class="title">🎓 CGPA & SGPA Calculator</div>', unsafe_allow_html=True)
 st.markdown("<p style='text-align:center;'>Designed with ❤️ using Streamlit</p>", unsafe_allow_html=True)
 
 # --------------------------
@@ -143,7 +167,7 @@ with tab1:
                         y -= 20
                         c.drawString(50, y, str(idx))
                         c.drawString(90, y, s[0])
-                        c.drawString(160, y, s[1][:25])  # limit subject name
+                        c.drawString(160, y, s[1][:25])
                         c.drawString(300, y, s[2])
                         c.drawString(340, y, str(s[3]))
                         c.drawString(400, y, s[4])
