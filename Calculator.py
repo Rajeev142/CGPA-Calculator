@@ -13,7 +13,6 @@ st.set_page_config(page_title="🎓 CGPA & SGPA Calculator", layout="centered")
 # --------------------------
 st.markdown("""
     <style>
-    /* Input Fields */
     .stTextInput input, .stDateInput input, .stNumberInput input,
     .stSelectbox div[data-baseweb="select"], .stTextArea textarea {
         color: black !important;
@@ -21,19 +20,15 @@ st.markdown("""
         border: 1px solid #ccc !important;
         border-radius: 5px !important;
     }
-
     input, textarea, select {
         color: black !important;
         background-color: white !important;
     }
-
     .stButton button {
         background-color: #1E88E5 !important;
         color: white !important;
         border-radius: 8px !important;
     }
-
-    /* Centered Title Styling */
     .title-box {
         height: 120px;
         display: flex;
@@ -100,9 +95,9 @@ with tab1:
 
     for i in range(num_subjects):
         st.markdown(f"### Subject {i+1}")
-        code = st.text_input(f"📌 Subject Code", key=f"code_{i}")
-        name = st.text_input(f"📚 Subject Name", key=f"name_{i}")
-        credit = st.number_input(f"🔢 Credit", min_value=0, max_value=10, step=1, key=f"credit_{i}")
+        code = st.text_input("📌 Subject Code", key=f"code_{i}")
+        name = st.text_input("📚 Subject Name", key=f"name_{i}")
+        credit = st.number_input("🔢 Credit", min_value=0, max_value=10, step=1, key=f"credit_{i}")
         grade = st.selectbox("🎯 Grade", list(grades_map.keys()), key=f"grade_{i}")
         tp = st.selectbox("📘 T/P", ["T", "P"], key=f"tp_{i}")
 
@@ -111,7 +106,7 @@ with tab1:
         total_points += grade_point * credit
         subjects.append((code, name, tp, credit, grade))
 
-    if st.button("🎓 Calculate SGPA"):
+    if st.button("🎓 Calculate SGPA", key="calculate_sgpa_btn"):
         if total_credits == 0:
             st.error("Please enter at least one subject with credit > 0.")
         else:
@@ -134,7 +129,7 @@ with tab1:
             })
             st.markdown(f"**Total Credits:** {total_credits} &nbsp;&nbsp;|&nbsp;&nbsp; **SGPA:** {sgpa:.2f}")
 
-            # --------------- PDF Generation using reportlab ----------------
+            # --------------- PDF Generation ----------------
             def generate_pdf():
                 with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
                     c = canvas.Canvas(tmp.name)
@@ -193,18 +188,31 @@ with tab1:
 # --------------------------
 with tab2:
     st.header("📗 CGPA Calculator")
-    num_sem = st.number_input("Enter number of semesters", min_value=1, max_value=12, step=1)
+    num_sem = st.number_input("Enter number of semesters", min_value=1, max_value=12, step=1, key="num_sem")
 
     total_cgpa_points = 0
     total_cgpa_credits = 0
 
     for i in range(1, num_sem + 1):
-        sgpa = st.number_input(f"SGPA for Semester {i}", min_value=0.0, max_value=10.0, step=0.01, format="%.2f", key=f"sgpa_{i}")
-        credit = st.number_input(f"Total Credits for Semester {i}", min_value=1, max_value=50, step=1, key=f"credit_{i}")
+        sgpa = st.number_input(
+            f"SGPA for Semester {i}",
+            min_value=0.0,
+            max_value=10.0,
+            step=0.01,
+            format="%.2f",
+            key=f"cgpa_sgpa_{i}"
+        )
+        credit = st.number_input(
+            f"Total Credits for Semester {i}",
+            min_value=1,
+            max_value=50,
+            step=1,
+            key=f"cgpa_credit_{i}"  # unique key to avoid conflict
+        )
         total_cgpa_points += sgpa * credit
         total_cgpa_credits += credit
 
-    if st.button("🎯 Calculate CGPA"):
+    if st.button("🎯 Calculate CGPA", key="calculate_cgpa_btn"):
         if total_cgpa_credits == 0:
             st.error("Total credits cannot be zero.")
         else:
